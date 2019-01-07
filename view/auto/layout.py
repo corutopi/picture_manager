@@ -56,14 +56,22 @@ class MainLayout ( wx.Frame ):
 		self.Centre( wx.BOTH )
 
 		# Connect Events
+		self.Bind( wx.EVT_KEY_DOWN, self.event_key_down )
 		self.Bind( wx.EVT_MENU, self.event_read_file, id = self.m_menuItem1.GetId() )
+		self.m_panel1.Bind( wx.EVT_SIZE, self.event_change_size )
 
 	def __del__( self ):
 		pass
 
 
 	# Virtual event handlers, overide them in your derived class
+	def event_key_down( self, event ):
+		event.Skip()
+
 	def event_read_file( self, event ):
+		event.Skip()
+
+	def event_change_size( self, event ):
 		event.Skip()
 
 	def m_splitter1OnIdle( self, event ):

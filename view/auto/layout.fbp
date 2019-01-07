@@ -54,6 +54,7 @@
             <property name="window_name"></property>
             <property name="window_style">wxTAB_TRAVERSAL</property>
             <property name="xrc_skip_sizer">1</property>
+            <event name="OnKeyDown">event_key_down</event>
             <object class="wxMenuBar" expanded="1">
                 <property name="bg"></property>
                 <property name="context_help"></property>
@@ -214,6 +215,7 @@
                                 <property name="window_extra_style"></property>
                                 <property name="window_name"></property>
                                 <property name="window_style">wxTAB_TRAVERSAL</property>
+                                <event name="OnSize">event_change_size</event>
                                 <object class="wxGridSizer" expanded="1">
                                     <property name="cols">0</property>
                                     <property name="hgap">0</property>

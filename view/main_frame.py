@@ -27,19 +27,28 @@ def resize_bitmap(b: wx.Bitmap, width, height) -> wx.Bitmap:
 
 
 class MainForm(MainLayout):
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.file_path = None
+        self.origin_bitmap = None
+        pass
+
     def event_read_file(self, event):
+        """Open file select dialog and display selected picture file.
+        :param event:
+        :return:
+        """
         dialog = wx.FileDialog(None, u'ファイルを選択してください')
         dialog.SetWildcard('picture|*.bmp; *.png; *.jpg')
         dialog.ShowModal()
         if dialog.GetPath() == '':
             return
-
-        # @todo Correct the orientation of the image
-        # part4 outside image size correct
+        # set picture
+        self.file_path = dialog.GetPath()
+        self.origin_bitmap = wx.Bitmap(self.file_path)
         print(self.main_picture.GetSize())
-        b = wx.Bitmap(dialog.GetPath())
         w, h = self.main_picture.GetSize()
-        b = resize_bitmap(b, w, h)
+        b = resize_bitmap(self.origin_bitmap, w, h)
         print(b.GetWidth())
         print(b.GetHeight())
         self.main_picture.SetBitmap(b)
@@ -47,35 +56,32 @@ class MainForm(MainLayout):
         self.main_picture.GetParent().Layout()
         self.Layout()
 
-        # # part3 remove warning from part2
-        # b = wx.Bitmap(dialog.GetPath())
-        # i: wx.Image = b.ConvertToImage()
-        # i = i.Scale(100, 100, wx.IMAGE_QUALITY_HIGH)
-        # b = wx.Bitmap(i)
-        # self.main_picture.SetBitmap(b)
-        # '''the image before centering is not displayed on the screen'''
-        # self.main_picture.GetParent().Layout()
-        # self.Layout()
+    def event_change_size(self, event):
+        """Resize picture to fit the frame.
+        @todo not resize when maximizing window with double click
+        :param event:
+        :return:
+        """
+        if self.file_path is None:
+            return
+        w, h = self.main_picture.GetSize()
+        b = resize_bitmap(self.origin_bitmap, w, h)
+        self.main_picture.SetBitmap(b)
+        self.main_picture.GetParent().Layout()
+        self.Layout()
 
-        # # part2 use ImageFromBitmap and BitmapFromImage
-        # b = wx.Bitmap(dialog.GetPath())
-        # i: wx.Image = wx.ImageFromBitmap(b)
-        # i = i.Scale(100, 100, wx.IMAGE_QUALITY_HIGH)
-        # b = wx.BitmapFromImage(i)
-        # self.main_picture.SetBitmap(b)
-        # '''the image before centering is not displayed on the screen'''
-        # self.main_picture.GetParent().Layout()
-        # # self.main_picture.SetBitmap(wx.Bitmap(dialog.GetPath()))
-        # self.Layout()
-
-        # # part1 normal
-        # b = wx.Bitmap(dialog.GetPath())
-        # print(b.GetSize())
-        # b.SetSize((100, 100))
-        # print(b.GetSize())
-        # self.main_picture.SetBitmap(b)
-        # # self.main_picture.SetBitmap(wx.Bitmap(dialog.GetPath()))
-        # self.Layout()
+    def event_key_down(self, event):
+        """Key down event like this.
+        Left / Right cursor keys:
+            Prev / next picture is display in same folder.
+        Delete key:
+            Remove displayed picture(goto trash box).
+        Function key 5:
+            Reload picture file.
+        @todo implement
+        :param event:
+        :return:
+        """
         pass
 
 
