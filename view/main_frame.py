@@ -62,9 +62,11 @@ class MainForm(MainLayout):
         :param event:
         :return:
         """
+        print('resize panel!')
+        print(self.main_picture.GetSize())
         if self.file_path is None:
             return
-        w, h = self.main_picture.GetSize()
+        w, h = self.m_panel1.GetSize()
         b = resize_bitmap(self.origin_bitmap, w, h)
         self.main_picture.SetBitmap(b)
         self.main_picture.GetParent().Layout()
@@ -83,6 +85,10 @@ class MainForm(MainLayout):
         :return:
         """
         pass
+
+    def event_change_size_frame( self, event ):
+        print('resize frame!')
+        event.Skip()
 
 
 if __name__ == '__main__':
