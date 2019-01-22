@@ -42,7 +42,7 @@
             <property name="hidden">0</property>
             <property name="id">wxID_ANY</property>
             <property name="maximum_size"></property>
-            <property name="minimum_size"></property>
+            <property name="minimum_size">500,300</property>
             <property name="name">MainLayout</property>
             <property name="pos"></property>
             <property name="size">500,300</property>
@@ -54,7 +54,6 @@
             <property name="window_name"></property>
             <property name="window_style">wxTAB_TRAVERSAL</property>
             <property name="xrc_skip_sizer">1</property>
-            <event name="OnKeyDown">event_key_down</event>
             <event name="OnSize">event_change_size_frame</event>
             <object class="wxMenuBar" expanded="1">
                 <property name="bg"></property>
@@ -164,6 +163,7 @@
                         <property name="window_extra_style"></property>
                         <property name="window_name"></property>
                         <property name="window_style"></property>
+                        <event name="OnKeyDown">event_key_down</event>
                         <object class="splitteritem" expanded="1">
                             <object class="wxPanel" expanded="1">
                                 <property name="BottomDockable">1</property>
@@ -216,6 +216,7 @@
                                 <property name="window_extra_style"></property>
                                 <property name="window_name"></property>
                                 <property name="window_style">wxTAB_TRAVERSAL</property>
+                                <event name="OnCharHook">event_key_down</event>
                                 <event name="OnSize">event_change_size</event>
                                 <object class="wxGridSizer" expanded="1">
                                     <property name="cols">0</property>

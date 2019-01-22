@@ -19,7 +19,7 @@ class MainLayout ( wx.Frame ):
 	def __init__( self, parent ):
 		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 
-		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
+		self.SetSizeHints( wx.Size( 500,300 ), wx.DefaultSize )
 
 		self.m_menubar1 = wx.MenuBar( 0 )
 		self.m_menu1 = wx.Menu()
@@ -56,9 +56,10 @@ class MainLayout ( wx.Frame ):
 		self.Centre( wx.BOTH )
 
 		# Connect Events
-		self.Bind( wx.EVT_KEY_DOWN, self.event_key_down )
 		self.Bind( wx.EVT_SIZE, self.event_change_size_frame )
 		self.Bind( wx.EVT_MENU, self.event_read_file, id = self.m_menuItem1.GetId() )
+		self.m_splitter1.Bind( wx.EVT_KEY_DOWN, self.event_key_down )
+		self.main_picture_panel.Bind( wx.EVT_CHAR_HOOK, self.event_key_down )
 		self.main_picture_panel.Bind( wx.EVT_SIZE, self.event_change_size )
 
 	def __del__( self ):
@@ -66,14 +67,15 @@ class MainLayout ( wx.Frame ):
 
 
 	# Virtual event handlers, overide them in your derived class
-	def event_key_down( self, event ):
-		event.Skip()
-
 	def event_change_size_frame( self, event ):
 		event.Skip()
 
 	def event_read_file( self, event ):
 		event.Skip()
+
+	def event_key_down( self, event ):
+		event.Skip()
+
 
 	def event_change_size( self, event ):
 		event.Skip()
